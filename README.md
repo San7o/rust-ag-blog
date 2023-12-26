@@ -5,4 +5,8 @@ Simple static markdown blog, using Rust, with:
 - [Tera](https://github.com/Keats/tera) template engine to insert html to a template file
 - Wordpress local to generate the template
 
-
+Features
+- [x] Markdown to Html 
+- [x] Html to Template 
+- [ ] Support for yaml tags
+- [ ] Decent templates

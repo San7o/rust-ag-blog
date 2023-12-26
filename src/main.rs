@@ -29,25 +29,15 @@ lazy_static! {
             }
         };
         tera.autoescape_on(vec![".html", ".sql"]);
-        //tera.register_filter("do_nothing", do_nothing_filter);
         tera
     };
 }
-
-/*
-// Honestly I have no idea of waht is this and shy this is needed
-pub fn do_nothing_filter(value: &Value, _: &HashMap<String, Value>) -> Result<Value> {
-    let s = try_get_value!("do_nothing_filter", "value", String, value);
-    Ok(to_value(s).unwrap())
-}
-*/
 
 fn main() {
     
     // FILE INPUT -------------------------------------------------------
     // From rust by example
     
-    /*
     // Create a path to the desired file
     let path = Path::new("posts/example1.md");
     let display = path.display();
@@ -65,7 +55,6 @@ fn main() {
                 // Using markdown library to parse the file
         Ok(_) => println!("{}", markdown::to_html(&s)),
     }
-    */
     
     // INSERTING INTO TEMPLATE ------------------------------------- 
 
@@ -87,6 +76,7 @@ fn main() {
     // Assuming post.html exists in templates/ and has the context variables
     match TEMPLATES.render("post.html", &context) {
         Ok(s) => {
+            // Printing the result 
             println!("{s}");
         },
         Err(why) => {
