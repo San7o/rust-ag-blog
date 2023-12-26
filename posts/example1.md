@@ -6,6 +6,7 @@ date: 2023-10-29
 feature_image: images/civico13/aereo.jpg
 tags: [volontariato]
 ---
+BEGIN DOCUMENT
 
 Credo fortemente che "chi cerca trova". Ci sono tantissime opportunità per chi vuole vivere un'esperienza all'estero: che sia lavorativa, di studio o di volontariato, è un importante mezzo per allargare i nostri orizzonti e accrescere il nostro bagaglio culturale personale.
 

@@ -8,5 +8,5 @@ Simple static markdown blog, using Rust, with:
 Features
 - [x] Markdown to Html 
 - [x] Html to Template 
-- [ ] Support for yaml tags
+- [x] Support for yaml tags
 - [ ] Decent templates

@@ -10,6 +10,11 @@ use tera::Tera;
 use tera::Context;
 use tera::try_get_value;
 
+// Yaml 
+use yaml_rust::YamlEmitter;
+use yaml_rust::YamlLoader;
+use yaml_rust::Yaml;
+
 // LOADING TEMPLATES -----------------------------------------------------
 
 use lazy_static::lazy_static;
@@ -49,13 +54,39 @@ fn main() {
     };
 
     // Read the file contents into a string, returns `io::Result<usize>`
-    let mut s = String::new();
-    match file.read_to_string(&mut s) {
-        Err(why) => panic!("couldn't read {}: {}", display, why),
-                // Using markdown library to parse the file
-        Ok(_) => println!("{}", markdown::to_html(&s)),
+    let mut content = String::new();
+    file.read_to_string(&mut content).unwrap();
+   
+
+
+    // Dividing the document into the yaml part and the markdown part
+    let parts_iterator = content.split("BEGIN DOCUMENT");
+    let parts: Vec<String> = parts_iterator.map(|s| s.to_string()).collect();
+
+
+    // PARSING YAML ------------------------------------------------------
+    let tags = &YamlLoader::load_from_str(&parts[0]).unwrap()[0];
+
+    // Dump the YAML object
+    println!("Yaml Object:");
+    let mut out_str = String::new();
+    {
+        let mut emitter = YamlEmitter::new(&mut out_str);
+        emitter.dump(&tags).unwrap(); // dump the YAML object to a String
     }
-    
+    println!("{}", out_str);
+
+    // Example getting something from the yaml
+    // println!("Query the yaml: {}", tags["title"].as_str().unwrap());
+   
+
+
+    // PARSING HTML ----------------------------------------------------
+    let html = markdown::to_html(&parts[1]);
+    println!("HTML:\n{}", html);
+   
+
+
     // INSERTING INTO TEMPLATE ------------------------------------- 
 
     // To render something in Tera we need two things
@@ -93,8 +124,5 @@ fn main() {
     // or a struct
     tera.render("products/product.html", &Context::from_serialize(&product)?)?;
     */
-
-    
-
 
 }
