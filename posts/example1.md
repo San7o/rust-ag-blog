@@ -32,7 +32,6 @@ Nel sito trovi anche tanti link ad altre realtà come il [Portale Europeo per i 
 Sempre dall'unione Europea, ma più incentrata sul **lavoro**, [Eures](https://eures.ec.europa.eu/index_it) è **"una rete di cooperazione europea dei servizi per l’impiego, concepita per facilitare la libera circolazione dei lavoratori."**
 Sostanzialmente è un portale di ricerca per lavoro a livello Europeo. Se sei interessato dopo gli studi a vivere in un altro paese europeo, salvati questo sito. Ti danno una mano soprattutto a livello **burocratico**, per esempio per farti riconoscere la laurea in altri paesi o vari altri problemi che ti possono rallentare.
 
-{% include image_caption.html imageurl="/images/civico13/eures.jpg" title="Eures" caption="Eures" %}
 
 # Aiesec
 
@@ -41,7 +40,6 @@ Sostanzialmente è un portale di ricerca per lavoro a livello Europeo. Se sei in
 
 AIESEC esiste da ormai 75 anni, tra le opportunità hanno tirocini, **insegnare lingue all'estero** e diversi tipi di volontariato (non retribuito) per l'agenda 2030.
 
-{% include image_caption.html imageurl="/images/civico13/aiesec.jpg" title="Aiesec" caption="Portali Aiesec" %}
 
 # Associazione Inco
 
@@ -53,7 +51,6 @@ Nella sezione "News" ha parecchie cose interessanti, in ogni caso è un altro co
 
 All'evento c'era anche l'immancabile UniTN come ente di riferimento (e soprattutto per rispondere a cento mila domande) per un'esperienza di **studio all'estero**, se sei studente in una qualsiasi università ti puoi informare sui programmi che offrono: Tirocini (anche post laurea), doppia laurea, Erasmus+ e accordi bilaterali fuori dall'UE.
 
-{% include image_caption.html imageurl="/images/civico13/unitn.jpg" title="UniTn" caption="Sito UniTn" %}
 
 Anche se ci dovrai sbattere molto la testa per organizzare il piano di studi, ne vale davvero la pena.
 
@@ -68,7 +65,6 @@ Se vivi in Trentino, [Sportello Giovani del Trentino](https://www.sportellogiova
 
 Sono super disponibili e sapranno sicuramente indirizzarti e darti una mano in quello che vuoi fare (anche se vuoi organizzare qualcosa tu, tramite il progetto [Starters](https://trentogiovani.it/Attivita/Bandi-e-concorsi/Bando-Proposte-Progettuali-STARTERS) puoi anche avere finanziamenti dalla provincia, magari ne parlerò in un altro post).
 
-{% include image_caption.html imageurl="/images/civico13/civico13.jpg" title="Civico13" caption="Sito Civico13" %}
 ---
 
 
