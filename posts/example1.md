@@ -22,8 +22,6 @@ Giovedì 26 ottobre ho partecipato alla **Fiera della mobilità internazionale**
 [EuroDesk](https://www.eurodesk.it/) è **"la rete ufficiale del programma europeo Erasmus+ per l’informazione sui programmi e le iniziative promosse dalle istituzioni europee in favore dei giovani."**
 La rete EuroDesk ha parecchie sedi (75 per la precisione) distribuite in ogni regione d'italia, è facile da contattare e organizzano spesso eventi di orientamento per chiedere più informazioni.
 
-{% include image_caption.html imageurl="/images/civico13/eurodesk.jpg" title="EuroDesk" caption="Il sito di EuroDesk" %}
-
 Sito davvero interessantissimo, puoi cercare opportunità di **Tirocini, Volontariato, Finanziamenti, parecchi concorsi e news generali** sulle attività giovanili in Europa per l'agenda 2030. Le iniziative sono davvero tante quindi consiglio di iscriverti alla loro newsletter e al canale telegram per rimanere aggiornati.
 Nel sito trovi anche tanti link ad altre realtà come il [Portale Europeo per i Giovani](https://youth.europa.eu/home_it) (anche [questo](https://youth.europa.eu/solidarity/young-people/about_en) è un sacco interessante).
 
