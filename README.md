@@ -1,6 +1,7 @@
 # Markdown blog in Rust
 
-Rust toolchain to create posts in markdown for a static blog, hosted by github pages. For each blog post, the toolchain will parse it to html and yaml, a new post page will be created from an html template made in wordpress.
+Rust toolchain for managing markdown posts for a static blog, hosted on github pages. For each markdown blog post, the toolchain will parse it to html and yaml, a new post page will be created from an html template made in wordpress.
+
 I used:
 - [Markdown](https://github.com/wooorm/markdown-rs) to parse the markdown files into html
 - [Tera](https://github.com/Keats/tera) template engine to insert html to a template file
