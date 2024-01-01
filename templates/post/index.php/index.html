@@ -142,12 +142,12 @@ flexibility(document.documentElement);
 																		<div class="elementor-element elementor-element-0c73a23 e-con-full e-flex e-con e-child" data-id="0c73a23" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
 																			<div class="elementor-element elementor-element-e3ee3a0 elementor-widget elementor-widget-heading" data-id="e3ee3a0" data-element_type="widget" id="blog" data-widget_type="heading.default">
 																				<div class="elementor-widget-container">
-																					<h1 class="elementor-heading-title elementor-size-default">TITOLO</h1>
+                              <h1 class="elementor-heading-title elementor-size-default">{{ title }}</h1>
 																				</div>
 																			</div>
 																			<div class="elementor-element elementor-element-51b7381 elementor-widget elementor-widget-heading" data-id="51b7381" data-element_type="widget" data-widget_type="heading.default">
 																				<div class="elementor-widget-container">
-																					<h3 class="elementor-heading-title elementor-size-default">Sottotilolo</h3>
+                              <h3 class="elementor-heading-title elementor-size-default">{{ subtitle }}</h3>
 																				</div>
 																			</div>
 																		</div>
@@ -156,29 +156,32 @@ flexibility(document.documentElement);
 																<div class="elementor-element elementor-element-b069d22 e-flex e-con-boxed e-con e-parent" data-id="b069d22" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;boxed&quot;}" data-core-v316-plus="true">
 																	<div class="e-con-inner">
 																		<div class="elementor-element elementor-element-56a4564 e-con-full e-flex e-con e-child" data-id="56a4564" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+																			<!-- SUBTITLE EXAMPLE -->
+																			<!--
 																			<div class="elementor-element elementor-element-50d6336 elementor-widget elementor-widget-heading" data-id="50d6336" data-element_type="widget" data-widget_type="heading.default">
 																				<div class="elementor-widget-container">
 																					<h3 class="elementor-heading-title elementor-size-default">Sottotilolo</h3>
 																				</div>
 																			</div>
+																			-->
 																			<div class="elementor-element elementor-element-9308ff2 elementor-widget elementor-widget-text-editor" data-id="9308ff2" data-element_type="widget" data-widget_type="text-editor.default">
 																				<div class="elementor-widget-container">
 																					<style>/*! elementor - v3.18.0 - 20-12-2023 */ .elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap{background-color:#69727d;color:#fff}.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap{color:#69727d;border:3px solid;background-color:transparent}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap{margin-top:8px}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter{width:1em;height:1em}.elementor-widget-text-editor .elementor-drop-cap{float:left;text-align:center;line-height:1;font-size:50px}.elementor-widget-text-editor .elementor-drop-cap-letter{display:inline-block}</style>
-																					<p style="margin-bottom: 1rem; color: #212529; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: normal; font-weight: 400;">Lorem ipsum dolor sit amet. Ut exercitationem consequatur id porro molestias ut debitis voluptas sit ratione voluptas qui repellendus natus? Qui totam reiciendis ut odio quod ea odio galisum non nobis impedit id voluptatem sint ut animi assumenda ea error beatae! Sit voluptatem accusantium ut voluptatem labore nam magni doloribus non dicta velit aut praesentium saepe!
-																						<span style="text-align: var(--text-align); background-color: var(--ast-global-color-5);">Lorem ipsum dolor sit amet. Ut exercitationem consequatur id porro molestias ut debitis voluptas sit ratione voluptas qui repellendus natus? Qui totam reiciendis ut odio quod ea odio galisum non nobis impedit id voluptatem sint ut animi assumenda ea error beatae! Sit voluptatem accusantium ut voluptatem labore nam magni doloribus non dicta velit aut praesentium saepe!</span>
-																						<span style="text-align: var(--text-align); background-color: var(--ast-global-color-5);">Lorem ipsum dolor sit amet. Ut exercitationem consequatur id porro molestias ut debitis voluptas sit ratione voluptas qui repellendus natus? Qui totam reiciendis ut odio quod ea odio galisum non nobis impedit id voluptatem sint ut animi assumenda ea error beatae! Sit voluptatem accusantium ut voluptatem labore nam magni doloribus non dicta velit aut praesentium saepe!</span>
-																						<span style="text-align: var(--text-align); background-color: var(--ast-global-color-5);">Lorem ipsum dolor sit amet. Ut exercitationem consequatur id porro molestias ut debitis voluptas sit ratione voluptas qui repellendus natus? Qui totam reiciendis ut odio quod ea odio galisum non nobis impedit id voluptatem sint ut animi assumenda ea error beatae! Sit voluptatem accusantium ut voluptatem labore nam magni doloribus non dicta velit aut praesentium saepe!</span>
-																					</p>
+																					<p style="margin-bottom: 1rem; color: #212529; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: normal; font-weight: 400;">{{ text }}																	</p>
 																				</div>
 																			</div>
+
+																			<!-- IMAGE EXAMPLE -->
+																			<!-- 
 																			<div class="elementor-element elementor-element-e56c3c6 elementor-widget elementor-widget-image" data-id="e56c3c6" data-element_type="widget" data-widget_type="image.default">
 																				<div class="elementor-widget-container">
 																					<img decoding="async" width="1024" height="811" src="./../images/2022-10-Content-Writing.jpg" class="attachment-large size-large wp-image-1698" alt="" />
 																				</div>
 																			</div>
+																			-->
 																			<div class="elementor-element elementor-element-0370403 elementor-widget elementor-widget-heading" data-id="0370403" data-element_type="widget" data-widget_type="heading.default">
 																				<div class="elementor-widget-container">
-																					<h4 class="elementor-heading-title elementor-size-default">Scritto Da</h4>
+																					<h4 class="elementor-heading-title elementor-size-default">{{ author }}</h4>
 																				</div>
 																			</div>
 																		</div>

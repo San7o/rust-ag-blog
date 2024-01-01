@@ -12,4 +12,5 @@ Features
 - [x] Markdown to Html 
 - [x] Html to Template 
 - [x] Support for yaml tags
-- [ ] Decent templates
+- [x] Decent templates
+- [ ] Link MD to templates
