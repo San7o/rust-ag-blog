@@ -2,34 +2,35 @@
 
 Rust toolchain for managing markdown posts for a static blog, hosted on github pages. For each markdown blog post, the toolchain will parse it to html and yaml, a new post page will be created from an html template made in wordpress.
 
-### What I used:
+## What I used:
 - [Markdown](https://github.com/wooorm/markdown-rs) to parse the markdown files into html
 - [Tera](https://github.com/Keats/tera) template engine to insert html to a template file
 - [yaml-rust](https://github.com/chyh1990/yaml-rust) to parse Yaml data
 - Local installation with [WordPress](https://github.com/WordPress/WordPress) to generate the templates
-  - Thanks to used [Elementor](https://it.wordpress.org/plugins/elementor/) editor and [Export WP page to html](https://wordpress.org/plugins/export-wp-page-to-static-html/).
+  - Thanks to [Elementor](https://it.wordpress.org/plugins/elementor/) editor and [Export WP page to html](https://wordpress.org/plugins/export-wp-page-to-static-html/).
 
-### Structure:
-- posts/          .md post files
-- site/           the main site 
-  - blog/         the main blog page
-  - post/         all the posts' html 
-  - index.html    the main site index 
-- src/            the source code
-- templates/      templates folder    
-  - blog.html     custom template for the blog page  
-  - post.html     custom template for a post
+## Structure:
+- posts/         -> .md post files
+- site/          -> the main public site 
+  - blog/        -> the main blog page
+  - post/        -> all the posts' html 
+  - index.html   -> the main site index 
+- src/           -> the source code
+- templates/     -> templates folder    
+  - blog.html    -> custom template for the blog page  
+  - post.html    -> custom template for a post
   
-### Must have jaml tags 
+## Must have jaml tags 
 In every post file there `must` exist a yaml tag for each of the following:
-- filename: Short string without spaces, the html file will be named after this
-- title: The main title displayed
-- subtitle: Will be displayed under the title, leave empty ("") for no subtitle 
-- description: A summary of the blog content, will be displayed in the blog page
-- author: Author name
-- "BEGIN DOCUMENT" keyword: to divide tags section from the blog content section
+- `filename`: Short string without spaces, the html file will be named after this
+- `title`: The main title displayed
+- `subtitle`: Will be displayed under the title, leave empty ("") for no subtitle 
+- `description`: A summary of the blog content, will be displayed in the blog page
+- `image`: the name of the image (with the file type), the image must be in the site/images/ directory
+- `author`: Author name
+- `"BEGIN DOCUMENT"` keyword after the tags: to divide tags section from the blog content section
 
-### Recommendations
+## Recommendations
 Use .jpg images or any compressed format (not .png)
 
 Features / TODO
@@ -39,5 +40,6 @@ Features / TODO
 - [x] Decent templates
 - [x] Link MD to templates
 - [x] Post page 
-- [ ] Blog Page
+- [x] Blog Page
+- [ ] Buttons connected
 - [ ] Images from png to jpg

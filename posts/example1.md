@@ -5,7 +5,7 @@ subtitle: "Programma 2024"
 description: "Ecco qui il nuovo programma dell'alpinismo giovanile per il 2024!!"
 date: 2024-01-7
 author: "Giovanni Santini"
-feature_image: images/civico13/aereo.jpg
+image: images/civico13/aereo.jpg
 tags: [volontariato]
 ---
 BEGIN DOCUMENT

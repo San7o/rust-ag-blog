@@ -5,7 +5,7 @@ subtitle: "Un sottotitolo"
 description: "Trallallero trallalla"
 date: 2024-01-7
 author: "Giovanni Santini"
-feature_image: images/civico13/aereo.jpg
+image: images/civico13/aereo.jpg
 tags: [volontariato]
 ---
 BEGIN DOCUMENT

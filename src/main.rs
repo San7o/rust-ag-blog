@@ -42,16 +42,44 @@ lazy_static! {
     };
 }
 
+#[derive(Debug)]
+struct PostPreview {
+    title: String,
+    description: String,
+    image: String,
+    filename: String,
+}
+
+use serde::Serializer;
+use serde::Serialize;
+use serde::ser::SerializeStruct;
+
+impl Serialize for PostPreview {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut state = serializer.serialize_struct("PostPreview", 4)?;
+
+        state.serialize_field("title", &self.title)?;
+        state.serialize_field("description", &self.description)?;
+        state.serialize_field("image", &self.image)?;
+        state.serialize_field("filename", &self.filename)?;
+
+        state.end()
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>>{
     
-    // FILE INPUT
-    
     let md_posts = fs::read_dir("posts/")?;
+        
+    let mut posts_vector: Vec<PostPreview> = Vec::new(); 
 
     for md_post in md_posts {
         
         let path = &(md_post?).path();
-        println!("Path: {}", path.display());
+        println!("Working on: {}", path.display());
 
         let content = read_file_strings(&path)?;
         
@@ -103,8 +131,34 @@ fn main() -> Result<(), Box<dyn Error>>{
             }
         };
 
+
+        // Update the posts vector for blog page 
+        posts_vector.push(PostPreview {
+            title: tags["title"].clone().into_string().unwrap(),
+            description: tags["description"].clone().into_string().unwrap(),
+            image: tags["image"].clone().into_string().unwrap(),
+            filename: tags["filename"].clone().into_string().unwrap(),
+        });
+
     } 
-        
+
+    // Create the blog page
+    let mut context = Context::new();
+    context.insert("posts", &posts_vector);
+    let mut file = File::create("./site/blog/index.php/blog.html")?;
+    
+    // Test for now
+    match TEMPLATES.render("blog.html", &context) {
+        Ok(s) => {
+            // Printing the result 
+            file.write_all(&s.into_bytes())?;
+        },
+        Err(why) => {
+            println!("Problems in rendering from template: {}", why);
+        }
+    };
+
+
 
     Ok(())
 }
