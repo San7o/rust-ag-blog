@@ -33,7 +33,7 @@ lazy_static! {
                 ::std::process::exit(1);
             }
         };
-        tera.autoescape_on(vec![".html", ".sql"]);
+        //tera.autoescape_on(vec![".html", ".sql"]);
         tera
     };
 }
@@ -83,6 +83,8 @@ fn main() {
 
     // PARSING HTML ----------------------------------------------------
     let html = markdown::to_html(&parts[1]);
+    
+    // DUMP Html
     println!("HTML:\n{}", html);
    
 
@@ -100,10 +102,19 @@ fn main() {
     let mut context = Context::new();
 
     // Filling the context with data
+    /*
     let product_name = String::from("Ventilatore di Zeb");
     context.insert("product", &product_name);
     let noise = 10000;
     context.insert("noise", &noise);
+    */ 
+    
+    // Actual content 
+    context.insert("title", tags["title"].as_str().unwrap());
+    context.insert("subtitle", tags["subtitle"].as_str().unwrap());
+    context.insert("author", tags["author"].as_str().unwrap());
+    context.insert("text", &html);
+    
     // Assuming post.html exists in templates/ and has the context variables
     match TEMPLATES.render("post.html", &context) {
         Ok(s) => {
@@ -124,5 +135,20 @@ fn main() {
     // or a struct
     tera.render("products/product.html", &Context::from_serialize(&product)?)?;
     */
+    
+    
+    // WRITE TO FILE -------------------------------------------------
+    let mut file = File::create("./site/post/index.php/prova.html").unwrap();
+    match TEMPLATES.render("post.html", &context) {
+        Ok(s) => {
+            // Printing the result 
+            file.write_all(&s.into_bytes()).unwrap();
+        },
+        Err(why) => {
+            println!("Problems in rendering from template: {}", why);
+        }
+    };
+
+
 
 }

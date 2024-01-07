@@ -14,3 +14,4 @@ Features
 - [x] Support for yaml tags
 - [x] Decent templates
 - [ ] Link MD to templates
+- [ ] Images to jpg
