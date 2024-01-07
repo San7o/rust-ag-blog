@@ -1,4 +1,5 @@
 ---
+filename: "lorem"
 title: "La montagna 360°"
 subtitle: "Programma 2024"
 description: "Ecco qui il nuovo programma dell'alpinismo giovanile per il 2024!!"
