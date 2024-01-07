@@ -119,7 +119,7 @@ fn main() -> Result<(), Box<dyn Error>>{
         
         // WRITE TO FILE
         let mut file = File::create(
-                         format!("./site/post/index.php/{}.html", file_name)
+                         format!("./site/post/{}.html", file_name)
                         )?;
         match TEMPLATES.render("post.html", &context) {
             Ok(s) => {
@@ -145,7 +145,7 @@ fn main() -> Result<(), Box<dyn Error>>{
     // Create the blog page
     let mut context = Context::new();
     context.insert("posts", &posts_vector);
-    let mut file = File::create("./site/blog/index.php/blog.html")?;
+    let mut file = File::create("./site/blog/blog.html")?;
     
     // Test for now
     match TEMPLATES.render("blog.html", &context) {

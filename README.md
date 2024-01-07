@@ -22,18 +22,18 @@ Rust toolchain for managing markdown posts for a static blog, hosted on github p
   
 ## Must have jaml tags 
 In every post file there `must` exist a yaml tag for each of the following:
-- `filename`: Short string without spaces, the html file will be named after this
+- `filename`: Short string without spaces, the html file will be named after this: You have to include then file type (.html)
 - `title`: The main title displayed
 - `subtitle`: Will be displayed under the title, leave empty ("") for no subtitle 
 - `description`: A summary of the blog content, will be displayed in the blog page
-- `image`: the name of the image (with the file type), the image must be in the site/images/ directory
+- `image`: the name of the image (with the file type), the image must be in the site/blog/images/ directory
 - `author`: Author name
 - `"BEGIN DOCUMENT"` keyword after the tags: to divide tags section from the blog content section
 
 ## Recommendations
 Use .jpg images or any compressed format (not .png)
 
-Features / TODO
+Development
 - [x] Markdown to Html 
 - [x] Html to Template 
 - [x] Support for yaml tags
@@ -41,5 +41,10 @@ Features / TODO
 - [x] Link MD to templates
 - [x] Post page 
 - [x] Blog Page
-- [ ] Buttons connected
+- [x] Buttons connected
 - [ ] Images from png to jpg
+
+## Pagine
+- [ ] Chi siamo
+- [ ] La montagna sottosopra
+- [ ] La montagna a 360°
