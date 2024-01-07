@@ -20,9 +20,9 @@ Rust toolchain for managing markdown posts for a static blog, hosted on github p
   - blog.html    -> custom template for the blog page  
   - post.html    -> custom template for a post
   
-## Must have jaml tags 
+## Must have yaml tags 
 In every post file there `must` exist a yaml tag for each of the following:
-- `filename`: Short string without spaces, the html file will be named after this: You have to include then file type (.html)
+- `filename`: Short string without spaces, the html file will be named after this
 - `title`: The main title displayed
 - `subtitle`: Will be displayed under the title, leave empty ("") for no subtitle 
 - `description`: A summary of the blog content, will be displayed in the blog page
