@@ -42,7 +42,7 @@ Development
 - [x] Post page 
 - [x] Blog Page
 - [x] Buttons connected
-- [ ] Images from png to jpg
+- [x] Images from png to jpg
 
 ## Pagine
 - [ ] Chi siamo

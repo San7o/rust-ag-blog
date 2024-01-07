@@ -4,7 +4,7 @@ title: "La Montagna sotto-sopra"
 subtitle: "Programma 2024"
 description: "Ecco iil nuovo programma 2024!!"
 date: 2024-01-7
-author: "Giovanni Santini"
+author: "La commissione A.G."
 image: "2022-10-Content-Writing.jpg"
 ---
 BEGIN DOCUMENT

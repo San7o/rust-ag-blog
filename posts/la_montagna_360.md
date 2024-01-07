@@ -4,7 +4,7 @@ title: "La montagna 360°"
 subtitle: "Programma 2024"
 description: "Ecco qui il nuovo programma dell'alpinismo giovanile per il 2024!!"
 date: 2024-01-7
-author: "Giovanni Santini"
+author: "La commissione A.G."
 image: "2022-10-Content-Writing.jpg"
 ---
 BEGIN DOCUMENT

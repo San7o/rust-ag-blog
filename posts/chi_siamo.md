@@ -4,7 +4,7 @@ title: "La commissione alpinismo giovanile"
 subtitle: "SAT Trento"
 description: "La nostra commissione"
 date: 2024-01-7
-author: "Giovanni Santini"
+author: "La commissione A.G."
 image: "2022-10-Content-Writing.jpg"
 ---
 BEGIN DOCUMENT
