@@ -40,7 +40,6 @@ fn main() -> Result<(), eframe::Error> {
 #[derive(Default)]
 enum State {
     Add,
-    Modify,
     Remove,
     Res,
     #[default]
@@ -134,7 +133,8 @@ impl eframe::App for MyApp {
             match self.state {
                 State::Add => {
                     egui::ScrollArea::vertical().show(ui, |ui| {
-                            
+                           
+                    ui.horizontal(|ui|{
                         if ui.button("Salva").clicked() {
                             match add_post(&self.post) {
                                 Ok(()) => {
@@ -146,7 +146,12 @@ impl eframe::App for MyApp {
                             }
                             // self.state = State::Res;
                         }
-                    ui.label(RichText::new(&self.result));
+                        if ui.button("Cancella").clicked() {
+                            self.post = PostData::default();
+                        }
+
+                        ui.label(RichText::new(&self.result));
+                    });
 
                         ui.columns(2, |ui| {
                             ui[0].label("Titolo");
@@ -176,8 +181,6 @@ impl eframe::App for MyApp {
                     });
         
                 },
-                State::Modify => {
-               },
                 State::Remove => {
 
                 },
