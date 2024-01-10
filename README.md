@@ -19,6 +19,7 @@ The toolchain comes with a fully-working GUI made with [eGUI](https://github.com
 - [yaml-rust](https://github.com/chyh1990/yaml-rust) to parse Yaml data
 - [egui](https://github.com/emilk/egui) for the GUI interface
 - [rfd](https://github.com/PolyMeilex/rfd) to open file picker window
+- [webbrowser](https://docs.rs/webbrowser/latest/webbrowser/) to open the site on the browser
 - Local installation with [WordPress](https://github.com/WordPress/WordPress) to generate the templates
   - Thanks to [Elementor](https://it.wordpress.org/plugins/elementor/) editor and [Export WP page to html](https://wordpress.org/plugins/export-wp-page-to-static-html/).
 
@@ -65,7 +66,9 @@ Use .jpg images or any compressed format (not .png)
   - [x] Aggiungi Post 
   - [x] Modifica Post 
   - [x] Rimuovi Post
-
+  - [ ] Apri nel browser
+- [ ] Test on Windows 
+- [ ] Test on macOS
 
 ## Pagine
 - [ ] Chi siamo

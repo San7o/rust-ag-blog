@@ -145,6 +145,9 @@ impl eframe::App for MyApp {
                         }
                         self.state = State::Res;
                     }
+                    if ui[0].button("Apri nel browser").clicked() {
+                        let _ = webbrowser::open("./site/index.html");
+                    }
                     if ui[0].add(exit_button).clicked() {
                     
                         process::exit(0);
