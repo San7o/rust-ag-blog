@@ -7,5 +7,4 @@ author: "{{ author }}"
 image: "{{ image }}"
 ---
 BEGIN DOCUMENT
-
 {{ text }}

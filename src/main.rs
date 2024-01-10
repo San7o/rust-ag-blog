@@ -8,6 +8,7 @@ use crate::egui::TextEdit;
 use crate::egui::RichText;
 use crate::add::add_post;
 use crate::open::open_post;
+use crate::remove::remove;
 
 use crate::generate::generate_page;
 use crate::add::PostData;
@@ -19,6 +20,7 @@ use std::process;
 mod generate;
 mod add;
 mod open;
+mod remove;
 
 fn main() -> Result<(), eframe::Error> {
     let options = eframe::NativeOptions {
@@ -107,7 +109,30 @@ impl eframe::App for MyApp {
                      };
                     }
                     if ui[0].button("Elimina Post").clicked() {
-                        self.state = State::Remove;
+
+
+                        let file = FileDialog::new()
+                            .add_filter("md", &["md"])
+                            .set_directory("./posts")
+                            .pick_file();
+                            
+                        match &file {
+                            Some(f) => {
+                                match &remove(f.as_path()) {
+                                    Ok(()) => {
+                                        self.result = "File rimosso con successo".to_owned();
+                                    },
+                                    Err(why) => {
+                                        self.result = format!("Errore nella selezione del file: {}", why);
+                                    }
+                                };
+                            },
+                            None => {
+                                self.result = String::from("Errore nella selezione del file");
+                            }
+                        };
+
+                        self.state = State::Res;
                     }
                     if ui[0].button("Genera Sito").clicked() {
                         match generate_page() {
@@ -144,7 +169,6 @@ impl eframe::App for MyApp {
                                     self.result = format!("Ci sono stati degli errori nel salvataggio: {}", why);
                                 }
                             }
-                            // self.state = State::Res;
                         }
                         if ui.button("Cancella").clicked() {
                             self.post = PostData::default();

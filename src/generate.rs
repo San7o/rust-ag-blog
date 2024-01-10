@@ -84,7 +84,7 @@ pub fn generate_page() -> Result<(), Box<dyn Error>>{
         let content = read_file_strings(&path)?;
         
         // Dividing the document into the yaml part and the markdown part
-        let parts_iterator = content.split("BEGIN DOCUMENT");
+        let parts_iterator = content.split("BEGIN DOCUMENT\n");
         let parts: Vec<String> = parts_iterator.map(|s| s.to_string()).collect();
 
 
