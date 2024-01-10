@@ -60,11 +60,11 @@ Use .jpg images or any compressed format (not .png)
 - [x] Blog Page
 - [x] Buttons connected
 - [x] Images from png to jpg
-- [ ] GUI
+- [x] GUI
   - [x] Genera Sito 
   - [x] Aggiungi Post 
-  - [ ] Modifica Post 
-  - [ ] Rimuovi Post
+  - [x] Modifica Post 
+  - [x] Rimuovi Post
 
 
 ## Pagine
