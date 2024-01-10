@@ -7,14 +7,18 @@ use crate::egui::Resize;
 use crate::egui::TextEdit;
 use crate::egui::RichText;
 use crate::add::add_post;
+use crate::open::open_post;
 
 use crate::generate::generate_page;
 use crate::add::PostData;
+
+use rfd::FileDialog;
 
 use std::process;
 
 mod generate;
 mod add;
+mod open;
 
 fn main() -> Result<(), eframe::Error> {
     let options = eframe::NativeOptions {
@@ -75,10 +79,33 @@ impl eframe::App for MyApp {
                     // Buttons
                     if ui[0].add(post_button).clicked() {
                         self.result = "".to_owned();
+                        self.post = PostData::default();
                         self.state = State::Add;
                     }
                     if ui[0].button("Modifica Post").clicked() {
-                        self.state = State::Modify;
+                     let file = FileDialog::new()
+                        .add_filter("md", &["md"])
+                        .set_directory("./posts")
+                        .pick_file();
+                        
+                     match &file {
+                        Some(f) => {
+                            match &open_post(f.as_path()) {
+                                Ok(p) => {
+                                    self.post = p.clone();
+                                    self.state = State::Add;
+                                },
+                                Err(why) => {
+                                    self.result = format!("Errore nella selezione del file: {}", why);
+                                    self.state = State::Res;
+                                }
+                            };
+                        },
+                        None => {
+                            self.result = String::from("Errore nella selezione del file");
+                            self.state = State::Res;
+                        }
+                     };
                     }
                     if ui[0].button("Elimina Post").clicked() {
                         self.state = State::Remove;
@@ -107,6 +134,19 @@ impl eframe::App for MyApp {
             match self.state {
                 State::Add => {
                     egui::ScrollArea::vertical().show(ui, |ui| {
+                            
+                        if ui.button("Salva").clicked() {
+                            match add_post(&self.post) {
+                                Ok(()) => {
+                                    self.result ="Salvataggio avvenuto correttamente".to_owned();
+                                },
+                                Err(why) => {
+                                    self.result = format!("Ci sono stati degli errori nel salvataggio: {}", why);
+                                }
+                            }
+                            // self.state = State::Res;
+                        }
+                    ui.label(RichText::new(&self.result));
 
                         ui.columns(2, |ui| {
                             ui[0].label("Titolo");
@@ -134,24 +174,10 @@ impl eframe::App for MyApp {
                         ui.add(text_field);
 
                     });
-
-                    if ui.button("Salva").clicked() {
-                        match add_post(&self.post) {
-                            Ok(()) => {
-                                self.result ="Salvataggio avvenuto correttamente".to_owned();
-                            },
-                            Err(why) => {
-                                self.result = format!("Ci sono stati degli errori nel salvataggio: {}", why);
-                            }
-                        }
-                        // self.state = State::Res;
-                    }
-                    ui.label(RichText::new(&self.result));
         
                 },
                 State::Modify => {
-
-                },
+               },
                 State::Remove => {
 
                 },

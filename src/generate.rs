@@ -163,7 +163,7 @@ pub fn generate_page() -> Result<(), Box<dyn Error>>{
     Ok(())
 }
 
-fn read_file_strings(path: &Path) -> Result<String, Box<dyn Error>> {
+pub fn read_file_strings(path: &Path) -> Result<String, Box<dyn Error>> {
 
     // Open the path in read-only mode, returns `io::Result<File>`
     let mut file = File::open(&path)?;
@@ -176,7 +176,7 @@ fn read_file_strings(path: &Path) -> Result<String, Box<dyn Error>> {
    
 }
 
-fn dump_yaml(tags: &Yaml) {
+pub fn dump_yaml(tags: &Yaml) {
 
     // Example getting something from the yaml
     // println!("Query the yaml: {}", tags["title"].as_str().unwrap());
@@ -193,7 +193,7 @@ fn dump_yaml(tags: &Yaml) {
 
 }
 
-fn dump_final(context: Context) {
+pub fn dump_final(context: Context) {
 
     // Printing html
     // Assuming post.html exists in templates/ and has the context variables

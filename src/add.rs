@@ -4,7 +4,7 @@ use crate::generate::TEMPLATES;
 use std::io::Write;
 use std::error::Error;
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct PostData {
     pub title: String,
     pub subtitle: String,
