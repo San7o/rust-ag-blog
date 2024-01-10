@@ -1,221 +1,165 @@
-// Std
-use std::collections::HashMap;
-use std::error::Error;
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-// File I/O
-use std::fs::File;
-use std::io::prelude::*;
-use std::path::Path;
-use std::fs;
+use eframe::egui;
+use crate::egui::Layout;
+use crate::egui::Button;
+use crate::egui::Resize;
+use crate::egui::TextEdit;
+use crate::egui::RichText;
+use crate::add::add_post;
 
-// Tera
-use tera::Tera;
-use tera::Context;
-use tera::try_get_value;
+use crate::generate::generate_page;
+use crate::add::PostData;
 
-// Yaml 
-use yaml_rust::YamlEmitter;
-use yaml_rust::YamlLoader;
-use yaml_rust::Yaml;
+use std::process;
 
-// LOADING TEMPLATES -----------------------------------------------------
+mod generate;
+mod add;
 
-use lazy_static::lazy_static;
+fn main() -> Result<(), eframe::Error> {
+    let options = eframe::NativeOptions {
+        viewport: egui::ViewportBuilder::default().with_inner_size([960.0, 540.0]),
+        ..Default::default()
+    };
+    eframe::run_native(
+        "Generatore Sito",
+        options,
+        Box::new(|cc| {
+            // This gives us image support:
+            egui_extras::install_image_loaders(&cc.egui_ctx);
 
-// Apparently we need serde
-use serde_json::value::{to_value, Value};
+            Box::<MyApp>::default()
+        }),
+    )
+}
 
-// Using lazy_static! so that only what I'm actually using will be evaluated
-// this is useful if I'm building just one page of the website
-lazy_static! {
-    pub static ref TEMPLATES: Tera = {
-        let mut tera = match Tera::new("templates/*") {
-            Ok(t) => t,
-            Err(e) => {
-                println!("Parsing error(s): {}", e);
-                ::std::process::exit(1);
+#[derive(Default)]
+enum State {
+    Add,
+    Modify,
+    Remove,
+    Res,
+    #[default]
+    None
+}
+
+#[derive(Default)]
+struct MyApp {
+    post: PostData,
+    state: State,
+    result: String,
+}
+
+impl eframe::App for MyApp {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        egui::CentralPanel::default().show(ctx, |ui| {
+            
+            // Heading text
+            ui.heading("Generatore Sito");
+
+            // Blank space 
+            ui.label("");
+           
+            // Left Panel
+            egui::SidePanel::left("left_panel")
+            .resizable(true)
+            .default_width(150.0)
+            .width_range(80.0..=200.0)
+            .show_inside(ui, |ui| {
+
+                ui.columns(1, |ui| {
+
+                    let post_button = Button::new("Aggiungi Post");
+                    let exit_button = Button::new("Esci");
+
+                    // Buttons
+                    if ui[0].add(post_button).clicked() {
+                        self.result = "".to_owned();
+                        self.state = State::Add;
+                    }
+                    if ui[0].button("Modifica Post").clicked() {
+                        self.state = State::Modify;
+                    }
+                    if ui[0].button("Elimina Post").clicked() {
+                        self.state = State::Remove;
+                    }
+                    if ui[0].button("Genera Sito").clicked() {
+                        match generate_page() {
+                            Ok(()) => {
+                                self.result ="Sito generato correttamente".to_owned();
+                            },
+                            Err(why) => {
+                                self.result = format!("Ci sono stati degli errori nella generazione del sito: {}", why);
+                            }
+                        }
+                        self.state = State::Res;
+                    }
+                    if ui[0].add(exit_button).clicked() {
+                    
+                        process::exit(0);
+                    }
+
+
+                });
+
+           });
+
+            match self.state {
+                State::Add => {
+                    egui::ScrollArea::vertical().show(ui, |ui| {
+
+                        ui.columns(2, |ui| {
+                            ui[0].label("Titolo");
+                            ui[0].text_edit_singleline(&mut self.post.title);
+                        
+                            ui[1].label("Sottotitolo");
+                            ui[1].text_edit_singleline(&mut self.post.subtitle);
+                        
+                            ui[0].label("Descrizione");
+                            ui[0].text_edit_singleline(&mut self.post.description);
+                            
+                            ui[1].label("Immagine");
+                            ui[1].text_edit_singleline(&mut self.post.image);
+                            
+                            ui[0].label("Autore");
+                            ui[0].text_edit_singleline(&mut self.post.author);
+
+                            ui[1].label("Nome del file");
+                            ui[1].text_edit_singleline(&mut self.post.filename);
+
+                        });
+                    ui.label("Testo");
+                        
+                        let text_field = TextEdit::multiline(&mut self.post.text).desired_width(f32::INFINITY);
+                        ui.add(text_field);
+
+                    });
+
+                    if ui.button("Salva").clicked() {
+                        match add_post(&self.post) {
+                            Ok(()) => {
+                                self.result ="Salvataggio avvenuto correttamente".to_owned();
+                            },
+                            Err(why) => {
+                                self.result = format!("Ci sono stati degli errori nel salvataggio: {}", why);
+                            }
+                        }
+                        // self.state = State::Res;
+                    }
+                    ui.label(RichText::new(&self.result));
+        
+                },
+                State::Modify => {
+
+                },
+                State::Remove => {
+
+                },
+                State::Res => {
+                    ui.label(RichText::new(self.result.clone()));
+                },
+                State::None => {},
             }
-        };
-        // Disabled autoescaping to display actual html
-        tera.autoescape_on(vec![".sql"]);
-        tera
-    };
-}
-
-#[derive(Debug)]
-struct PostPreview {
-    title: String,
-    description: String,
-    image: String,
-    filename: String,
-}
-
-use serde::Serializer;
-use serde::Serialize;
-use serde::ser::SerializeStruct;
-
-impl Serialize for PostPreview {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        let mut state = serializer.serialize_struct("PostPreview", 4)?;
-
-        state.serialize_field("title", &self.title)?;
-        state.serialize_field("description", &self.description)?;
-        state.serialize_field("image", &self.image)?;
-        state.serialize_field("filename", &self.filename)?;
-
-        state.end()
+       });
     }
-}
-
-fn main() -> Result<(), Box<dyn Error>>{
-    
-    let md_posts = fs::read_dir("posts/")?;
-        
-    let mut posts_vector: Vec<PostPreview> = Vec::new(); 
-
-    for md_post in md_posts {
-        
-        let path = &(md_post?).path();
-        println!("Working on: {}", path.display());
-
-        let content = read_file_strings(&path)?;
-        
-        // Dividing the document into the yaml part and the markdown part
-        let parts_iterator = content.split("BEGIN DOCUMENT");
-        let parts: Vec<String> = parts_iterator.map(|s| s.to_string()).collect();
-
-
-        let tags = &YamlLoader::load_from_str(&parts[0])?[0]; // Parsing YAML
-        // dump_yaml(tags); 
-
-
-        let html = markdown::to_html(&parts[1]); // Parsing HTML
-        // println!("HTML:\n{}", html); // Dump html
-
-
-        // INSERTING INTO TEMPLATE 
-        // To render something in Tera we need two things
-        // - name
-        // - context
-        // The prefix to the name wikk be automatically removed: /tempaltes/t.html -> t.html
-        // The context can be either a data structure that implements the `Serialize` trait from
-        // `serde_json` or an instance of `tera::Context`
-
-        // EXAMPLE: Using the tera Context struct
-        let mut context = Context::new();
-        
-        let file_name = tags["filename"].as_str().unwrap();
-
-        // Filling the context
-        context.insert("title", tags["title"].as_str().unwrap());
-        context.insert("subtitle", tags["subtitle"].as_str().unwrap());
-        context.insert("author", tags["author"].as_str().unwrap());
-        context.insert("text", &html);
-    
-        // dump_final(context); 
-        
-        // WRITE TO FILE
-        let mut file = File::create(
-                         format!("./site/post/{}.html", file_name)
-                        )?;
-        match TEMPLATES.render("post.html", &context) {
-            Ok(s) => {
-                // Printing the result 
-                file.write_all(&s.into_bytes())?;
-            },
-            Err(why) => {
-                println!("Problems in rendering from template: {}", why);
-            }
-        };
-
-
-        // Update the posts vector for blog page 
-        posts_vector.push(PostPreview {
-            title: tags["title"].clone().into_string().unwrap(),
-            description: tags["description"].clone().into_string().unwrap(),
-            image: tags["image"].clone().into_string().unwrap(),
-            filename: tags["filename"].clone().into_string().unwrap(),
-        });
-
-    } 
-
-    // Create the blog page
-    let mut context = Context::new();
-    context.insert("posts", &posts_vector);
-    let mut file = File::create("./site/blog/blog.html")?;
-    
-    // Test for now
-    match TEMPLATES.render("blog.html", &context) {
-        Ok(s) => {
-            // Printing the result 
-            file.write_all(&s.into_bytes())?;
-        },
-        Err(why) => {
-            println!("Problems in rendering from template: {}", why);
-        }
-    };
-
-
-
-    Ok(())
-}
-
-fn read_file_strings(path: &Path) -> Result<String, Box<dyn Error>> {
-
-    // Open the path in read-only mode, returns `io::Result<File>`
-    let mut file = File::open(&path)?;
-
-    // Read the file contents into a string, returns `io::Result<usize>`
-    let mut content = String::new();
-    let _ = file.read_to_string(&mut content)?;
-
-    Ok(content)
-   
-}
-
-fn dump_yaml(tags: &Yaml) {
-
-    // Example getting something from the yaml
-    // println!("Query the yaml: {}", tags["title"].as_str().unwrap());
- 
-
-    // Dump the YAML object
-    println!("Yaml Object:");
-    let mut out_str = String::new();
-    {
-        let mut emitter = YamlEmitter::new(&mut out_str);
-        emitter.dump(&tags).unwrap(); // dump the YAML object to a String
-    }
-    println!("{}", out_str);
-
-}
-
-fn dump_final(context: Context) {
-
-    // Printing html
-    // Assuming post.html exists in templates/ and has the context variables
-    match TEMPLATES.render("post.html", &context) {
-        Ok(s) => {
-            // Printing the result 
-            println!("{s}");
-        },
-        Err(why) => {
-            println!("Problems in rendering from template: {}", why);
-        }
-    };
-    
-    /*
-    // EXAMPLE Using a Serialize struct
-    #[derive(Serialize)]
-        struct Product {
-        name: String
-    }
-    // or a struct
-    tera.render("products/product.html", &Context::from_serialize(&product)?)?;
-    */
-     
-
 }

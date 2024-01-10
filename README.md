@@ -1,6 +1,17 @@
 # Markdown blog in Rust
 
-Rust toolchain for managing markdown posts for a static blog, hosted on github pages. For each markdown blog post, the toolchain will parse it to html and yaml, a new post page will be created from an html template made in wordpress.
+Visit the site: https://san7o.github.io/rust-ag-blog/site/
+
+
+This is my personal Rust toolchain for managing a static markdown blog. For each markdown blog post, the toolchain will parse it to html and yaml, a new post page will be created from an html template made in wordpress. Additionally, page with all the posts will be created.
+
+
+# GUI
+
+The toolchain comes with a fully-working GUI made with [eGUI](https://github.com/emilk/egui/tree/master?tab=readme-ov-file)
+
+![generatore](./assets/generatore.png)
+
 
 ## What I used:
 - [Markdown](https://github.com/wooorm/markdown-rs) to parse the markdown files into html
@@ -24,7 +35,7 @@ Rust toolchain for managing markdown posts for a static blog, hosted on github p
 In every post file there `must` exist a yaml tag for each of the following:
 - `filename`: Short string without spaces, the html file will be named after this
 - `title`: The main title displayed
-- `subtitle`: Will be displayed under the title, leave empty ("") for no subtitle 
+- `subtitle`: Will be displayed under the title 
 - `description`: A summary of the blog content, will be displayed in the blog page
 - `image`: the name of the image (with the file type), the image must be in the site/blog/images/ directory
 - `author`: Author name
@@ -43,6 +54,11 @@ Development
 - [x] Blog Page
 - [x] Buttons connected
 - [x] Images from png to jpg
+- [ ] GUI
+  - [x] Genera Sito 
+  - [x] Aggiungi Post 
+  - [ ] Modifica Post 
+  - [ ] Rimuovi Post
 
 ## Pagine
 - [ ] Chi siamo
